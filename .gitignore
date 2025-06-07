@@ -1,0 +1,39 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Virtual env
+venv/
+.env
+.env.*
+env 
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# IDE configs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Test output
+htmlcov/
+.coverage
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Data files (if you don’t want to commit raw data)
+data/
+
+# Python coverage
+.coverage.*
