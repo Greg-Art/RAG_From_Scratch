@@ -110,7 +110,7 @@ class Doc_Vectorizer:
         return self.vectors 
 
     def process_and_add_documents(self, file_path, file_type): ##this is a method for handling multiple 
-        file_type= file_type.suffix().lower() ##this should help handle various casing inputs of the variables 
+        file_type= file_type ##this should help handle various casing inputs of the variables 
         doc_loader= DocumentLoader(file_path) ##intiating the documentloader class
         if file_type == "pdf":
             original_data, processed_data= doc_loader.load_pdf()
