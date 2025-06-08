@@ -7,8 +7,8 @@ dv=Doc_Vectorizer() ##instantiting the Doc_vectorizer class
 
 #the code below should clear each storage variable after each session so previous docs don't interupt with new inputs
 def reset_database(): 
-    dv.vectorizer
-    dv.original_doc.clear()  
+    dv.vectorized_docs.clear()
+    dv.original_docs.clear()  
     dv.vectors= None
 
 # this should take the file type using the file name, e.g if you input a .txt file it should be able to infer that you are using a txt file

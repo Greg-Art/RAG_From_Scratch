@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 ##this ensures 
 load_dotenv()
 
-model= cohere.client_v2(api_key=os.getenv("SECRET_API_KEY")) ##trying to get me api key 
+model = cohere.ClientV2(os.getenv("SECRET_API_KEY")) ##trying to get me api key 
 
 
 def get_response(query, context): ##creating a function for the function

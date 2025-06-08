@@ -2,7 +2,7 @@
 
 import os 
 import nltk ##for data preprocessing 
-from PyPDF2 import PDFReader  ##for handling reading of the PDFs
+from PyPDF2 import PdfReader  ##for handling reading of the PDFs
 from bs4 import BeautifulSoup ##for web scrapping 
 from nltk.stem import PorterStemmer ##for stemming
 from nltk.tokenize import sent_tokenize ##for tokenizing our inputs
@@ -24,8 +24,8 @@ def process_text(text, Chunk_size= Chunk_size):
     sentences = sent_tokenize(text) ##tokenizing any text we recieve 
     ##I will be creating three variables 
 
-    original_text= [] ##this is for storing the original text we got from the user for easy retrival
-    processed_text= [] ##this will store our processed text after the original has been passed through this function
+    original_text= [] #this is for storing the original text we got from the user for easy retrival
+    processed_text= [] #this will store our processed text after the original has been passed through this function
     segments= ""  ##this is for storing the chunked up data 
     ##I will explain this code in a string below
     for text in sentences:
@@ -35,12 +35,11 @@ def process_text(text, Chunk_size= Chunk_size):
             segments = text
         segments += " " + text
 
-        """Here I am building a logic for checking when to stem and when to add to the segments: 
-        - If the length of the text plus the segment is larger than our Chunk size:
-            1.We will add everything to the original text variable 
-            2.Then we will stem it and add it to the proccesed text variable 
-            3.When done, we will assign the text to the signment
-        - However if that isn't the case, we add the text to our segments."""
+        # Split text into chunks of at most Chunk_size:
+        # when adding the next sentence would overflow the chunk,
+        # flush the current segment (unchanged and stemmed) to the outputs
+        # and start a new segment.
+
 
         ##Handling the last sequence 
 
@@ -64,7 +63,7 @@ class DocumentLoader:
 ## a method for loading and reading PDFs
     def load_pdf(self):
         with open(self.file_path, "rb") as f: ## We are using 'rb' since PDFs are compressed so we use rb to read it instead of reading it raw as we would with text files 
-            reader= PDFReader(f)
+            reader= PdfReader(f)
             text= ""
             for x in reader.pages:
                 text += x.extract_text()
