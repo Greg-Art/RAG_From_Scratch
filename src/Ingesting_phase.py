@@ -89,7 +89,7 @@ class DocumentLoader:
 
 
 
-## a function for adding documents 
+## a class for handling adding documents 
 
 class Doc_Vectorizer:
 
@@ -105,7 +105,7 @@ class Doc_Vectorizer:
 
 
     def add_documents(self, text):
-        self.vectorized_docs.append(text)
+        self.vectorized_docs.extend(text)
         self.vectors= self.vectorizer.fit_transform(self.vectorized_docs)
         return self.vectors 
 
