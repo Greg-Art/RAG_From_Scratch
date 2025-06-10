@@ -28,4 +28,3 @@ def chat(user_query, is_debug= False):
     return resp
 
 
-#testing the code 

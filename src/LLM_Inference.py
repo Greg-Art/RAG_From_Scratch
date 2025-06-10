@@ -17,7 +17,7 @@ def get_response(query, context): ##creating a function for the function
                ]
     
     response= model.chat(
-        model= "command-r-03-2024", ### I am using this model as it is good for RAG and it is not the most recent, so hopefully it isn't trianed on the doc 
+        model= "command-a-03-2025",
         messages= messages
     )
     ##getting the message 
@@ -25,3 +25,6 @@ def get_response(query, context): ##creating a function for the function
 
 
 
+## testing model:
+
+get_response("How are you?", "Just reply")
