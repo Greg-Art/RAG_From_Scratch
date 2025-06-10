@@ -19,7 +19,7 @@ def initialize(file_name):
 
 def chat(user_query, is_debug= False):
     original_best_match, processed_best_match= dv.find_best_matches(user_query)
-    context= "\n\n".join(original_best_match)
+    context= "\n\n".join(original_best_match[0])
 
     if is_debug: ##this is ensure that our model can give us some context when we aren't able to get a response
         print(f"Context: {context}")
