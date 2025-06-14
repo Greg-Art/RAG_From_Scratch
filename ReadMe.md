@@ -62,7 +62,7 @@ Run the Gradio app:
 python app/main.py
 ```
 
-- **Public access:** https://c7834b66e3d1631b7b.gradio.live/
+- **Public access:** https://f88581dddc6caba2e9.gradio.live/
 
 ### Stopping & Restarting
 

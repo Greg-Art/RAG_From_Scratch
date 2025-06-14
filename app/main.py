@@ -1,19 +1,19 @@
 import os
-import nltk  # for data preprocessing
+import nltk  
 import requests
 import gradio as gr
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Import your RAG package components
+# Importing RAG packages (personal package) and components
 from rag_builder.Ingesting_phase import DocumentLoader
 from rag_builder.Retrival_phase import dv, reset_database
 from rag_builder.LLM_Inference import get_response
 
-# Download necessary NLTK data
+
 nltk.download("punkt")
 
-# Load environment variables (SECRET_API_KEY should be set there)
+
 # By default, load_dotenv() loads a .env file from the current working directory
 load_dotenv()
 
@@ -65,7 +65,7 @@ def run_app(file_obj, url_input, user_query):
 # Build and launch Gradio UI
 def main():
     with gr.Blocks() as demo:
-        gr.Markdown("##RAG vs. Base Model Comparison: Kindly Provide A Document or A Link And Ask Questions")
+        gr.Markdown("## RAG vs. Base Model Comparison: Kindly Provide A Document or A Link And Ask Questions")
         with gr.Row():
             file_input = gr.File(label="Upload PDF/TXT", file_types=[".pdf", ".txt"])
             url_input = gr.Textbox(label="Or enter HTML URL", placeholder="https://...")
