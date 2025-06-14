@@ -7,8 +7,6 @@ A Gradio-based web application that compares a base LLM response versus a Retrie
 ---
 
 ## Demo
-
-- **Local URL:** http://127.0.0.1:7860  
 - **Public URL:** https://c7834b66e3d1631b7b.gradio.live/
 
 ---
@@ -64,7 +62,6 @@ Run the Gradio app:
 python app/main.py
 ```
 
-- **Local access:** http://127.0.0.1:7860  
 - **Public access:** https://c7834b66e3d1631b7b.gradio.live/
 
 ### Stopping & Restarting
