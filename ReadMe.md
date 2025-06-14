@@ -1,128 +1,113 @@
-# RAG Application from Scratch
+# Simple RAG Document QA App
 
-A modular Retrieval-Augmented Generation (RAG) pipeline built from scratch, wrapped in a simple Gradio app to demonstrate each phase:
+A Gradio-based web application that compares a base LLM response versus a Retrieval-Augmented Generation (RAG) response using your own documents (PDF or TXT) or web pages (HTML).
 
-* **Ingesting Phase**: Chunk and embed source data, store in a vector database.
-* **Retrieval Phase**: Embed user queries, perform similarity search on stored embeddings.
-* **LLM Inference**: Generate responses using an LLM, combining context with the user prompt.
-* **App**: Expose the pipeline via a Gradio interface.
+![Simple RAG Workflow](./Simple_RAG_Workflow.png)
 
 ---
 
-## Architecture
+## Demo
 
-The following diagram illustrates the flow of data through the RAG pipeline:
-
-**Flowchart**: Place your pipeline diagram at the project root as `flowchart.png`, then embed it inline:
-
-```markdown
-![RAG Pipeline Flowchart](flowchart.png)
-```
+- **Local URL:** http://127.0.0.1:7860  
+- **Public URL:** https://c7834b66e3d1631b7b.gradio.live/
 
 ---
 
-## Project Structure
+## Features
 
-```
-RAG_From_Scratch/
-├── .gitignore         # ignore env, IDE configs, logs, build artifacts, raw data
-├── Requirements.txt   # pinned Python dependencies
-├── notebooks/
-│   └── Rag_test.ipynb # exploratory notebook for pipeline tests
-├── rag_app/
-│   └── App.py         # Gradio application tying all modules together
-└── src/
-    ├── Ingesting_phase.py   # chunking, embedding, and storage logic
-    ├── Retrival_phase.py    # query embedding and vector DB search
-    └── LLM_Inference.py     # LLM prompt construction and completion logic
-```
+- **Upload PDFs or TXT files** to index and query your own documents.  
+- **Enter a URL** to fetch and index HTML content on the fly.  
+- **Compare two outputs**:  
+  - **Base Model**: LLM answer without any grounding context.  
+  - **RAG-Enhanced**: LLM answer grounded on the most relevant snippets retrieved from your document or web page.
+
+---
+
+## Prerequisites
+
+- Python 3.9 or newer  
+- Git (to clone this repo)  
+- A Cohere API key (set in `.env`)
 
 ---
 
 ## Installation
 
-1. **Clone the repository**
-
+1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your_username/RAG_From_Scratch.git
-   cd RAG_From_Scratch
+   git clone https://github.com/yourusername/Simple-RAG-Project.git
+   cd Simple-RAG-Project
    ```
 
-2. **Create a virtual environment**
-
+2. **Install dependencies (editable mode)**  
    ```bash
-   python -m venv env
-   source env/bin/activate    # macOS/Linux
-   env\Scripts\activate     # Windows
+   pip install -e .
    ```
 
-3. **Install dependencies**
-
+3. **Install NLTK data**  
    ```bash
-   pip install --upgrade pip
-   pip install -r Requirements.txt
+   python -c "import nltk; nltk.download('punkt')"
+   ```
+
+4. **Configure environment**  
+   Create a file named `.env` in the project root with:  
+   ```ini
+   SECRET_API_KEY=your_cohere_api_key_here
    ```
 
 ---
 
 ## Usage
 
-1. **Prepare your data**: Place or point your source documents in the appropriate folder or update `Ingesting_phase.py` to load from your data source.
+Run the Gradio app:  
+```bash
+python app/main.py
+```
 
-2. **Run ingestion** (optional manual test):
+- **Local access:** http://127.0.0.1:7860  
+- **Public access:** https://c7834b66e3d1631b7b.gradio.live/
 
+### Stopping & Restarting
+
+1. In the terminal where the app is running, press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop.  
+2. Re-run:  
    ```bash
-   python src/Ingesting_phase.py
+   python app/main.py
    ```
-
-3. **Test retrieval & inference** via notebook:
-
-   ```bash
-   jupyter notebook notebooks/Rag_test.ipynb
-   ```
-
-4. **Launch the Gradio app**:
-
-   ```bash
-   python rag_app/App.py
-   ```
-
-5. **Interact in your browser**: Open the local URL printed in your console to enter queries and see generated responses.
 
 ---
 
-## Module Details
+## How It Works
 
-* **Ingesting\_phase.py**:
+1. **Ingestion**: Upload a PDF/TXT or provide an HTML URL.  
+2. **Preprocessing**: Text is chunked, tokenized, and stemmed.  
+3. **Indexing**: Chunks are vectorized via TF–IDF within the `rag_builder` package.  
+4. **Retrieval**: For a given user query, the top‑k relevant chunks are retrieved as context.  
+5. **Generation**:  
+   - **Base**: `get_response(query)` calls the LLM without context.  
+   - **RAG**: `get_response(query, context)` includes retrieved snippets for a grounded answer.
 
-  * Splits raw documents into chunks.
-  * Generates embeddings using your chosen model (CoHere, OpenAI, etc.).
-  * Stores embeddings in a vector database (e.g., Chroma, FAISS).
+---
 
-* **Retrival\_phase.py**:
+## Project Structure
 
-  * Converts user input into embeddings.
-  * Performs similarity search against stored embeddings.
-  * Returns top-k relevant chunks.
-
-* **LLM\_Inference.py**:
-
-  * Constructs a prompt combining user query and retrieved context.
-  * Calls an LLM (GPT-4, Claude, etc.) to generate the final answer.
-
-* **App.py**:
-
-  * Integrates all phases into a Gradio interface.
-  * Handles user input, displays results, and allows simple configuration.
+```
+Simple-RAG-Project/
+├── Simple_RAG_Workflow.png         # RAG workflow diagram
+├── .env                            # Environment variables
+├── README.md                       # Project documentation
+├── pyproject.toml / setup.py       # Package configuration
+├── rag_builder/                    # RAG package modules
+│   ├── Ingesting_phase.py          # Document loading & preprocessing
+│   ├── Retrival_phase.py           # Vectorization & retrieval logic
+│   └── LLM_Inference.py            # Cohere API wrapper for chat
+└── app/                            # Gradio UI entry point
+    └── main.py                     # Launches the web interface
+```
 
 ---
 
 ## Contributing
 
-Feel free to open issues or submit pull requests! For major changes, please open an issue first to discuss what you’d like to change.
+Contributions welcome! Please open an issue or submit a pull request.
 
----
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

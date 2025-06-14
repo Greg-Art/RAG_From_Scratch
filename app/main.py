@@ -1,15 +1,9 @@
 import os
 import nltk  # for data preprocessing
-from PyPDF2 import PdfReader  # for PDF handling
-from bs4 import BeautifulSoup  # for HTML parsing
-from nltk.stem import PorterStemmer
-from nltk.tokenize import sent_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
-import cohere
-from dotenv import load_dotenv
+import requests
 import gradio as gr
 from pathlib import Path
-import requests
+from dotenv import load_dotenv
 
 # Import your RAG package components
 from rag_builder.Ingesting_phase import DocumentLoader
@@ -20,9 +14,8 @@ from rag_builder.LLM_Inference import get_response
 nltk.download("punkt")
 
 # Load environment variables (SECRET_API_KEY should be set there)
-env_file = Path(__file__).parent.parent / ".env"
-if env_file.exists():
-    load_dotenv(dotenv_path=env_file)
+# By default, load_dotenv() loads a .env file from the current working directory
+load_dotenv()
 
 # Gradio application logic
 def run_app(file_obj, url_input, user_query):
@@ -56,8 +49,15 @@ def run_app(file_obj, url_input, user_query):
     # Base model output (no context)
     base_output = get_response(user_query, "")
 
-    # RAG-enhanced output: gather best matches as context
-    context = "\n\n".join(dv.find_best_matches(user_query))
+            # RAG-enhanced output: gather best matches as context
+    matches = dv.find_best_matches(user_query)
+    flat_context = []
+    for m in matches:
+        if isinstance(m, list):
+            flat_context.extend(m)
+        else:
+            flat_context.append(m)
+    context = "".join(flat_context)
     rag_output = get_response(user_query, context)
 
     return base_output, rag_output
@@ -78,7 +78,8 @@ def main():
                       inputs=[file_input, url_input, query_input],
                       outputs=[out_base, out_rag])
 
-    demo.launch()
+    demo.launch(share= True)
 
 if __name__ == "__main__":
     main()
+    

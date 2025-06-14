@@ -20,7 +20,7 @@ def get_response(query, context=""):  ##creating a function for the
             "If the answer isn't present do not make it up, rather, inform the user that you do not know the answer"
         )
     }]
-    if context:  #only add the context when non-empty
+    if context:  # only add the context when non-empty
         messages.append({"role": "system", "content": context})
     messages.append({"role": "user", "content": query})
 
@@ -31,7 +31,6 @@ def get_response(query, context=""):  ##creating a function for the
     return response.message.content[0].text.strip()
 
 
- 
 
 
 
