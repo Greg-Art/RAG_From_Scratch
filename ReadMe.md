@@ -7,7 +7,7 @@ A Gradio-based web application that compares a base LLM response versus a Retrie
 ---
 
 ## Demo
-- **Public URL:** https://c7834b66e3d1631b7b.gradio.live/
+- **Public URL:** https://f88581dddc6caba2e9.gradio.live
 
 ---
 
