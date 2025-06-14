@@ -65,7 +65,7 @@ def run_app(file_obj, url_input, user_query):
 # Build and launch Gradio UI
 def main():
     with gr.Blocks() as demo:
-        gr.Markdown("## RAG vs. Base Model Comparison")
+        gr.Markdown("##RAG vs. Base Model Comparison: Kindly Provide A Document or A Link And Ask Questions")
         with gr.Row():
             file_input = gr.File(label="Upload PDF/TXT", file_types=[".pdf", ".txt"])
             url_input = gr.Textbox(label="Or enter HTML URL", placeholder="https://...")
@@ -82,4 +82,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
