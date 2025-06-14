@@ -1,5 +1,5 @@
-from LLM_Inference import get_response
-from Ingesting_phase import Doc_Vectorizer ##importing the doc_vectorizer class 
+from .LLM_Inference import get_response
+from .Ingesting_phase import Doc_Vectorizer ##importing the doc_vectorizer class 
 import requests 
 
 

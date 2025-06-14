@@ -67,7 +67,6 @@ class DocumentLoader:
             text= ""
             for x in reader.pages:
                 text += x.extract_text()
-                print(f"the total  ")
             return process_text(text)
 
 ## a method for handling txt files 
