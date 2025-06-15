@@ -132,9 +132,7 @@ class Doc_Vectorizer:
         return [self.original_docs[i] for i in best_match], [self.vectorized_docs[i] for i in best_match]
 
 
-#Construction of LLM and Outputs 
 
-##For the LLM I will be using one from Cohere since I cannot 
 
 
 

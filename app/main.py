@@ -1,3 +1,4 @@
+##importing relevant libraries and modules 
 import os
 import nltk  
 import requests
@@ -5,7 +6,7 @@ import gradio as gr
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Importing RAG packages (personal package) and components
+# Importing my personal rag packages and modules
 from rag_builder.Ingesting_phase import DocumentLoader
 from rag_builder.Retrival_phase import dv, reset_database
 from rag_builder.LLM_Inference import get_response
@@ -14,15 +15,15 @@ from rag_builder.LLM_Inference import get_response
 nltk.download("punkt")
 
 
-# By default, load_dotenv() loads a .env file from the current working directory
+#this is to load the env 
 load_dotenv()
 
-# Gradio application logic
+# buidling the gradio logic
 def run_app(file_obj, url_input, user_query):
-    # Clear out any previous state
+    # Clearing out any previous input
     reset_database()
 
-    # Ingest document or URL
+    # handling the ingestion
     if url_input:
         html = requests.get(url_input).text
         temp_path = Path("./temp_url.html")
@@ -46,10 +47,10 @@ def run_app(file_obj, url_input, user_query):
     else:
         return "Please upload a file or enter a URL.", ""
 
-    # Base model output (no context)
+    # Base model output to handle cases with no context
     base_output = get_response(user_query, "")
 
-            # RAG-enhanced output: gather best matches as context
+            ##gathering the best matches as context
     matches = dv.find_best_matches(user_query)
     flat_context = []
     for m in matches:
@@ -62,7 +63,7 @@ def run_app(file_obj, url_input, user_query):
 
     return base_output, rag_output
 
-# Build and launch Gradio UI
+# buidling the gradio interface
 def main():
     with gr.Blocks() as demo:
         gr.Markdown("## RAG vs. Base Model Comparison: Kindly Provide A Document or A Link And Ask Questions")
