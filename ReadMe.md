@@ -1,3 +1,9 @@
+---
+title: RAG_FROM_Scratch
+app_file: app/main.py
+sdk: gradio
+sdk_version: 5.33.1
+---
 # Simple RAG Document QA App
 
 A Gradio-based web application that compares a base LLM response versus a Retrieval-Augmented Generation (RAG) response using your own documents (PDF or TXT) or web pages (HTML).
