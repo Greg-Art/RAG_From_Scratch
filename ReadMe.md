@@ -13,7 +13,7 @@ A Gradio-based web application that compares a base LLM response versus a Retrie
 ---
 
 ## Demo
-- **Public URL:** https://5a3d2004f25b687da0.gradio.live/
+- **Public URL:** https://huggingface.co/spaces/gArthur98/RAG_App
 
 ---
 
@@ -68,7 +68,7 @@ Run the Gradio app:
 python app/main.py
 ```
 
-- **Public access:** https://5a3d2004f25b687da0.gradio.live/
+- **Public access:** https://huggingface.co/spaces/gArthur98/RAG_App
 
 ### Stopping & Restarting
 
